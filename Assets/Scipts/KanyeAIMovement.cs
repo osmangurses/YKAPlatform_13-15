@@ -12,7 +12,6 @@ public class KanyeAIMovement : MonoBehaviour
     private void Update()
     {
         AICharacterFollow();
-        KanyeTouchGroundDedect();
 
         
     }
@@ -28,6 +27,10 @@ public class KanyeAIMovement : MonoBehaviour
             goLeft = true;
             goRight = false;
         }
+        else
+        {
+            goLeft = false;
+        }
 
         Vector2 raycast2Origin = (Vector2)transform.position + -ray1Offset;
         Vector2 raycast2Direction = Vector2.right;
@@ -39,6 +42,10 @@ public class KanyeAIMovement : MonoBehaviour
             goLeft = false;
             goRight = true;
         }
+        else
+        {
+            goRight = false;
+        }
 
         if (goLeft)
         {
@@ -49,29 +56,5 @@ public class KanyeAIMovement : MonoBehaviour
             transform.position += Vector3.right * kanyeMovementSpeed * Time.deltaTime;
         }
     }
-    private void KanyeTouchGroundDedect()
-    {
-        Vector2 raycast1Origin = (Vector2)transform.position + ray2Offset;
-        Vector2 raycast1Direction = Vector2.left;
-        Debug.DrawRay(raycast1Origin, raycast1Direction * raycast2Distance, Color.red);
-        RaycastHit2D hit1 = Physics2D.Raycast(raycast1Origin, raycast1Direction, raycast2Distance);
-
-        if (hit1.collider != null && hit1.collider.gameObject.tag == "Ground")
-        {
-            goLeft = false;
-        }
-
-        Vector2 raycast2Origin = (Vector2)transform.position + -ray2Offset;
-        Vector2 raycast2Direction = Vector2.right;
-        Debug.DrawRay(raycast2Origin, raycast2Direction * raycast2Distance, Color.red);
-        RaycastHit2D hit2 = Physics2D.Raycast(raycast2Origin, raycast2Direction, raycast2Distance);
-
-        if (hit2.collider != null && hit2.collider.gameObject.tag == "Ground")
-        {
-            goRight = false;
-        }
-
-
-
-    }
+   
 }

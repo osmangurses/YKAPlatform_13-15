@@ -12,6 +12,7 @@ public class characterMovement : MonoBehaviour
     public Vector2 rayOffset;
     public bool isGrounded=false;
     public GameObject characterSpriteRenderer;
+    public ManageAudio manageAudio;
     
     private CharacterAnimController animController;
     private Rigidbody2D rb;
@@ -25,6 +26,14 @@ public class characterMovement : MonoBehaviour
      private void Update()
      {
          transform.position += Vector3.right * characterSpeed * Time.deltaTime * movementRotate;
+        if (movementRotate!=0 && !manageAudio.audios[5].isPlaying && isGrounded && !manageAudio.audios[3].isPlaying)
+        {
+            manageAudio.PlayRunSound();
+        }
+        else if (manageAudio.audios[5].isPlaying && movementRotate==0)
+        {
+            manageAudio.StopRunSound();
+        }
          GroundedRayControl();
      }
    
@@ -67,6 +76,11 @@ public class characterMovement : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce);
+            manageAudio.PlayJumpSound();
+            if (manageAudio.audios[5].isPlaying)
+            {
+                manageAudio.StopRunSound();
+            }
         }
        
     }
