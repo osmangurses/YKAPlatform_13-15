@@ -8,18 +8,18 @@ public class CharacterCollideDedect : MonoBehaviour
     public int totalStar=0;
     public Button nextLevelButton;
     public Animator chestAnimator;
-    public ManageAudio manageAudio;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag=="Obstacle")
         {
             Destroy(gameObject);
-            manageAudio.PlayFailSound();
+            ManageAudio.instance.PlayFailSound();
         }
         else if (collision.gameObject.tag=="Chest" && totalStar==3)
         {
             nextLevelButton.gameObject.SetActive(true);
-            manageAudio.PlayLvCompleteSound();
+            ManageAudio.instance.PlayLvCompleteSound();
+            PlayerPrefs.SetInt("CurrentLevel",PlayerPrefs.GetInt("CurrentLevel")+1);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,7 +27,7 @@ public class CharacterCollideDedect : MonoBehaviour
         if (collision.gameObject.tag == "Star")
         {
             Debug.Log("Worked");
-            manageAudio.PlayCollectSound();
+            ManageAudio.instance.PlayCollectSound();
             Destroy(collision.gameObject);
             totalStar++;
             if (totalStar == 3)

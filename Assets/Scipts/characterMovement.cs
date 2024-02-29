@@ -12,7 +12,6 @@ public class characterMovement : MonoBehaviour
     public Vector2 rayOffset;
     public bool isGrounded=false;
     public GameObject characterSpriteRenderer;
-    public ManageAudio manageAudio;
     
     private CharacterAnimController animController;
     private Rigidbody2D rb;
@@ -26,15 +25,16 @@ public class characterMovement : MonoBehaviour
      private void Update()
      {
          transform.position += Vector3.right * characterSpeed * Time.deltaTime * movementRotate;
-        if (movementRotate!=0 && !manageAudio.audios[5].isPlaying && isGrounded && !manageAudio.audios[3].isPlaying)
+        if (movementRotate!=0 && !ManageAudio.instance.audios[5].isPlaying && isGrounded && !ManageAudio.instance.audios[3].isPlaying)
         {
-            manageAudio.PlayRunSound();
+            ManageAudio.instance.PlayRunSound();
         }
-        else if (manageAudio.audios[5].isPlaying && movementRotate==0)
+        else if (ManageAudio.instance.audios[5].isPlaying && movementRotate==0)
         {
-            manageAudio.StopRunSound();
+            ManageAudio.instance.StopRunSound();
         }
-         GroundedRayControl();
+        GroundedRayControl();
+        KeyboardController();
      }
    
 
@@ -71,15 +71,39 @@ public class characterMovement : MonoBehaviour
         else
         { animController.PlayRunAnim();}
     }
+
+    void KeyboardController()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            ChangeMovementRotate(-1);
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            ChangeMovementRotate(0);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ChangeMovementRotate(1);
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            ChangeMovementRotate(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            JumpCharacter();
+        }
+    }
     public void JumpCharacter()
     {
         if (isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce);
-            manageAudio.PlayJumpSound();
-            if (manageAudio.audios[5].isPlaying)
+            ManageAudio.instance.PlayJumpSound();
+            if (ManageAudio.instance.audios[5].isPlaying)
             {
-                manageAudio.StopRunSound();
+                ManageAudio.instance.StopRunSound();
             }
         }
        

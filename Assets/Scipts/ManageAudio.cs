@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class ManageAudio : MonoBehaviour
 {
+    public static ManageAudio instance;
     public AudioSource[] audios;
 
- 
+
+    private void Start()
+    {
+        instance = this;
+    }
     public void PlayCollectSound()
     {
         audios[0].Play();
