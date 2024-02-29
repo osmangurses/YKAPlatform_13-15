@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
+    private void Start()
+    {
+        Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.numerator;
+    }
     public void GoToGamePlayScene()
     {
         if (!PlayerPrefs.HasKey("CurrentLevel"))
