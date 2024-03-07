@@ -19,7 +19,10 @@ public class CharacterCollideDedect : MonoBehaviour
         {
             nextLevelButton.gameObject.SetActive(true);
             ManageAudio.instance.PlayLvCompleteSound();
-            PlayerPrefs.SetInt("CurrentLevel",PlayerPrefs.GetInt("CurrentLevel")+1);
+            if (PlayerPrefs.GetInt("CurrentLevel")<3)
+            {
+                PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

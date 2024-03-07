@@ -7,7 +7,7 @@ public class SceneTransition : MonoBehaviour
 {
     private void Start()
     {
-        Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.numerator;
+        Application.targetFrameRate =(int) Screen.currentResolution.refreshRateRatio.numerator;
     }
     public void GoToGamePlayScene()
     {
