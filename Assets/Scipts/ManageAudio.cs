@@ -11,6 +11,22 @@ public class ManageAudio : MonoBehaviour
     private void Start()
     {
         instance = this;
+        Debug.Log(PlayerPrefs.GetInt("Sound"));
+        if (PlayerPrefs.GetInt("Sound")==1)
+        {
+            for (int i = 0; i < audios.Length; i++)
+            {
+                audios[i].volume = 1;
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < audios.Length; i++)
+            {
+                audios[i].volume = 0;
+            }
+        }
     }
     public void PlayCollectSound()
     {
